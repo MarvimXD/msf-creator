@@ -19,8 +19,7 @@ finally:
 def init():
 	subprocess.run("clear", shell=True)
 	print('         .-""""""-.')
-	print('       _/_-~-~-~-_\\ENVIRONMENT ONLY
-	
+	print('       _/_-~-~-~-_\\')
 	print('      /~/_-~-~-~-_\\~\\')
 	print('     / / /    / / / /')
 	print('    / / /    / / / /')
