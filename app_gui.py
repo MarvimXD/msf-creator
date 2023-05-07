@@ -41,7 +41,6 @@ def init():
 	tk.Label(window).pack()
 	tk.Button(window, text="Create Payload", command=venomCreate, width=40, height=2).pack(pady=10, anchor="center", fill="none")
 	tk.Button(window, text="Start Msfconsole", width=40, height=2).pack(pady=10, anchor="center", fill="none")
-	tk.Button(window, text="Extra Options", width=40, height=2).pack(pady=10, anchor="center", fill="none")
 	tk.Button(window, text="Exit", command=exitApp, width=40, height=2).pack(pady=10, anchor="center", fill="none")
 
 
