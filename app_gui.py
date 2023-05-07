@@ -76,18 +76,22 @@ def venomCreate():
 	optionmenu.pack()
 	tk.Label(window).pack()
 
+
+	# HOST
 	tk.Label(window, text="Set the Host (Your Local IP is "+ip_address+")").pack()
 	input_host = tk.Entry(window, width=27, font=("Arial", 18))
 	input_host.insert(tk.END, ip_address)
 	input_host.pack()
 	tk.Label(window).pack()
 
+	# PORT
 	tk.Label(window, text="Set the Port:").pack()
 	input_port = tk.Entry(window, width=27, font=("Arial", 18))
 	input_port.insert(tk.END, "7777")
 	input_port.pack()
 	tk.Label(window).pack()
 
+	# PAYLOAD NAME
 	tk.Label(window, text="Set Payload's Name:").pack()
 	input_name = tk.Entry(window, width=27, font=("Arial", 18))
 	input_name.insert(tk.END, "mypayload")
